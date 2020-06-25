@@ -13,7 +13,7 @@ addpath Routines
 rng('shuffle')
 
 
-RunEstimation = 1;
+RunEstimation = 0;
 OutputName = 'OutputModelDD';
 FigSubFolder = 'FiguresModelDD';
 if ~exist(FigSubFolder,'dir')
@@ -45,7 +45,7 @@ if RunEstimation
     
     
     FirstY = 1960;
-    LastY  = 2016;
+    LastY  = 2020;
     
     T0 = min(find(year(Time)==FirstY));
     T1 = max(find(year(Time)==LastY));

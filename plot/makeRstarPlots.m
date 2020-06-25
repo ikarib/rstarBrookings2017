@@ -36,7 +36,7 @@ tvarTablespath = fullfile('..', 'tvar', 'output_data');
 dsgeTablespath = fullfile('..', 'dsge', 'output_data', 'm1010', 'ss20', ...
     'forecast', 'tables');
 otherTablespath = 'Tables/';
-suffix = '_cond=none_para=full_vint=161223.csv';
+suffix = '_cond=none_para=full_vint=200616.csv';
 
 % Do we want to label shockdecs with trend (adjustLevel = 1) or starting at 0?
 adjustLevel = 1;
@@ -156,7 +156,7 @@ purple = [.494 .204 .624]; orange = [.937 .506 .275]; sea_green = [.18; .62; .48
 
 %% Figure 1 - DSGE 30-year forward r* vs TVAR rbar
 fig1 = figure(1);
-l1 = PlotStatesShadedv3_oneband(time,rstarTrendyVAR(:,2:4));
+l1 = PlotStatesShadedv3_oneband(time(1:227),rstarTrendyVAR(:,2:4));
 hold on;
 
 l2 = PlotStatesShadedv3_oneband(time,DSGE_rstar30fwd(:,2:4),[0 0 1], 0.2);
@@ -165,6 +165,7 @@ leg = legend([l1,l2], 'VAR', 'DSGE', 'location', 'SouthWest','interpreter','late
 set(leg,'interpreter', 'latex')
 ylim([0,3.5]);
 set(gca,'YTick',[0:0.5:3.5])
+rmpath(fileparts(which('square')))
 printpdf(fig1,[figurespath, 'Figure1'], 'square', 0);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -492,6 +493,7 @@ filename = fullfile(figurespath, 'Figure7d');
 printpdf(f,filename, 'square', 1);
 
 %% Figure 8
+if 0
 load(fullfile(tvarTablespath,'OutModDDforCharts'));
 
 f = figure('Name','Figure 8','NumberTitle','off');
@@ -503,7 +505,7 @@ xlim([datenum('01-Jan-1960') datenum('01-Oct-2016')])
 hold off
 filename= fullfile(figurespath, 'Figure8'); %FiguresModelDD/DD
 printpdf(f,filename, 'square', 0);
-
+end
 %% Figure 9
 clear Time
 %%%%%%%% Charts for the model with Inflation, Tbill, Tbond, AAA, BAA with loose prior %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -605,7 +607,7 @@ printpdf(fig10, [figurespath, 'Figure10'], 'square', 0, 'fontsize', 12);
 %% Figure 11
 % Panel A: DSGE 20yr fwd r and rstar with trendy VAR
 fig11a = figure('Name','Figure 11(a)','NumberTitle','off');
-l1 = PlotStatesShadedv3_oneband(time,rstarTrendyVAR(:,2:4)); box on;
+l1 = PlotStatesShadedv3_oneband(time(1:227),rstarTrendyVAR(:,2:4)); box on;
 hold on;
 l2 = PlotStatesShadedv3_oneband(time,DSGE_rstar20fwd(:,2:4),[0 0 1], 0.2);
 hold off;
@@ -616,7 +618,7 @@ printpdf(fig11a,fullfile(figurespath, 'Figure11a'), 'square', 1);
 
 % Panel B: DSGE 30yr fwd r and rstar with TVAR
 fig11b = figure('Name','Figure 11(b)','NumberTitle','off');
-l1 = PlotStatesShadedv3_oneband(time,rstarTrendyVAR(:,2:4));
+l1 = PlotStatesShadedv3_oneband(time(1:227),rstarTrendyVAR(:,2:4));
 hold on;
 l2 = PlotStatesShadedv3_oneband(time,DSGE_rstar30fwd(:,2:4),[0 0 1], 0.2);
 hold off;
@@ -656,7 +658,7 @@ fig13 = figure('Name','Figure 13','NumberTitle','off');
 hold on;
 l3 = PlotStatesShadedv3_oneband(time,DSGE_rstar5fwd(:,2:4),[0 0 1], 0.2);
 hold on;
-l5 = plot(time,rstarLW,'Color',green,'LineWidth',2.0);
+l5 = plot(time(1:227),rstarLW,'Color',green,'LineWidth',2.0);
 ylim([-2 7])
 set(gca, 'YTick', -2:1:7)
 hold off;
